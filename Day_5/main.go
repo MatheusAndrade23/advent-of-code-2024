@@ -47,16 +47,8 @@ func checkRowOrder(rules [][]int, row []int) bool {
 }
 
 func fixRowOrder(rules [][]int, row []int) []int {
-	
-	precedence := make(map[int]map[int]bool)
 
-	for _, rule := range rules {
-		a, b := rule[0], rule[1]
-		if precedence[a] == nil {
-			precedence[a] = make(map[int]bool)
-		}
-		precedence[a][b] = true
-	}
+	precedence := buildPrecedenceMap(rules)
 
 	less := func(a, b int) bool {
 		if precedence[a] != nil && precedence[a][b] {
